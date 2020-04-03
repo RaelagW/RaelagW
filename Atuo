@@ -1,0 +1,88 @@
+// Spaghetti.exe
+
+// Libraries
+#include <iostream>
+#include <string>
+#include <stack>
+#include <math.h>
+
+using namespace std;
+
+// ProtoTypes
+float evaluate_postfix ( string exp );
+float evaluate_prefix ( string exp );
+float mathOperation ( float op1, float op2, char operat );
+
+int main()
+{
+    int A = 3, B = 1, C = 2, D = 6, E = 8;
+    // Input
+    // Postfix
+    string Expression_pos = "AB+DE*-";
+    cout << evaluate_postfix( Expression_pos ) << endl;
+
+    // Prefix
+    string Expression_pre = "+A^C/DB";
+    cout << evaluate_prefix( Expression_pre ) << endl;
+    return 0;
+}
+
+// Function to evaluate postfix expression
+float evaluate_postfix ( string exp ) {
+    stack<float> stk;
+    for ( int i = 0; i < exp.length(); ++i ){
+        if ( isdigit( exp[i] )) stk.push( exp[i] - '0' );
+        else if ( exp[i] == 'A' ) stk.push(3);
+        else if ( exp[i] == 'B' ) stk.push(1);
+        else if ( exp[i] == 'C' ) stk.push(2);
+        else if ( exp[i] == 'D' ) stk.push(6);
+        else if ( exp[i] == 'E' ) stk.push(8);
+        else{
+            float op2 = stk.top();
+            stk.pop();
+
+            float op1 = stk.top();
+            stk.pop();
+
+            float result = mathOperation ( op1, op2, exp[i] );
+            stk.push( result );
+        }
+    }
+
+    return stk.top();
+}
+
+// Function to evaluate prefix expression
+float evaluate_prefix ( string exp ) {
+    stack<float> stk;
+    for ( int i = exp.length() - 1; i > -1; --i ){
+        if ( isdigit( exp[i] )) stk.push( exp[i] - '0' );
+        else if ( exp[i] == 'A' ) stk.push(3);
+        else if ( exp[i] == 'B' ) stk.push(1);
+        else if ( exp[i] == 'C' ) stk.push(2);
+        else if ( exp[i] == 'D' ) stk.push(6);
+        else if ( exp[i] == 'E' ) stk.push(8);
+        else{
+            float op1 = stk.top();
+            stk.pop();
+
+            float op2 = stk.top();
+            stk.pop();
+
+            float result = mathOperation ( op1, op2, exp[i] );
+            stk.push( result );
+        }
+    }
+
+    return stk.top();
+}
+
+// Assistant function to recognize the operation between 2 operands
+float mathOperation ( float op1, float op2, char operat ){
+    if ( operat == '+' ) return op1 + op2;
+    else if ( operat == '-' ) return op1 - op2;
+    else if ( operat == '*' ) return op1 * op2;
+    else if ( operat == '/' ) return op1 / op2;
+    else if ( operat == '^') return pow(op1, op2);
+    else return 0;
+}

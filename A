@@ -33,7 +33,7 @@ int main(){
     cout << endl;
 
     // g)
-    cout << "\n\nDisplay array elements using its name: \n";
+    cout << "\n\nDisplay array elements using nptr with offset: \n";
     for ( int i = 0; i < 10; ++i ){
         if ( *( nptr + i ) == 0.0 ) cout << "0.0 ";
         else cout << *( nptr + i ) << " ";

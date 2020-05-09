@@ -4,32 +4,26 @@ using namespace std;
 
 int main()
 {
-    int A[10], B[10], temp, *aPtr, *bPtr;
+    int A[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10} , B[10] = {11, 12, 13, 14, 15, 16, 17, 18, 19, 20} , temp, *a, *b;
 
-    cout << "A matrix: \n";
-    for ( int i = 0; i < 10; ++i ){ cout << "Enter Elements[" << i + 1 << "]: "; cin >> A[i]; }
-
-    cout << "\n\nB matrix: \n";
-    for ( int i = 0; i < 10; ++i ){ cout << "Enter Elements[" << i + 1 << "]: "; cin >> B[i]; }
-
-    cout << "\nDisplay A matrix: \n";
+    cout << "\nShow A array: \n";
     for ( int i = 0; i < 10; ++i ){ cout << A[i] << " "; }
-    cout << "\n\nDisplay B matrix: \n";
+    cout << "\n\nShow B array: \n";
     for ( int i = 0; i < 10; ++i ){ cout << B[i] << " "; }
 
-    aPtr = A;
-    bPtr = B;
+    a = A;
+    b = B;
     for ( int i = 0; i < 10; ++i ){
-        temp = *(aPtr + i);
-        *(aPtr + i) = *(bPtr + i);
-        *(bPtr + i) = temp;
+        temp = *(a + i);
+        *(a + i) = *(b + i);
+        *(b + i) = temp;
     }
 
     cout << "\n\nAfter Swapping: \n";
-    cout << "\nA matrix: \n";
+    cout << "\nA array: \n";
     for ( int i = 0; i < 10; ++i ){ cout << A[i] << " "; }
 
-    cout << "\n\nB matrix: \n";
+    cout << "\n\nB array: \n";
     for ( int i = 0; i < 10; ++i ){ cout << B[i] << " "; }
     cout << "\n";
 

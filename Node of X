@@ -1,0 +1,72 @@
+#include <iostream>
+
+using namespace std;
+
+class linkedlist{
+private:
+    struct Node{
+        int item;
+        Node *next;
+    };
+
+    Node *head = NULL;
+
+public:
+    void append( int val ){
+        Node *newItem = new Node;
+        newItem -> item = val;
+        newItem -> next = NULL;
+
+        if ( head == NULL ) head = newItem;
+        else{
+            Node *temp = head;
+            while ( temp -> next != NULL )
+                temp = temp -> next;
+            temp -> next = newItem;
+        }
+    }
+
+    void display(){
+        Node *temp = head;
+        while ( temp != NULL ){
+            cout << temp -> item << " ";
+            temp = temp -> next;
+        }
+    }
+
+    void appendAtpos( int pos, int val ){
+        Node *newItem = new Node;
+        newItem -> item = val;
+        newItem -> next = NULL;
+
+        if ( pos == 0 ){
+            if ( head == NULL )
+                head = newItem;
+            else{
+                newItem -> next = head;
+                head = newItem;
+            }
+        }
+
+        Node *temp = head;
+        for ( int i = 0; i < pos - 1 && temp -> next != NULL; ++i )
+            temp = temp -> next;
+        newItem -> next = temp -> next;
+        temp -> next = newItem;
+    }
+};
+
+int main()
+{
+    int x, val;
+    linkedlist obj;
+    cout << "Enter number of nodes: ";
+    cin >> x;
+    for ( int i = 0; i < x; ++i ){
+        cout << "Enter value[" << i + 1 << "]: ";
+        cin >> val;
+        obj.append( val );
+    }
+    obj.display();
+    return 0;
+}

@@ -1,0 +1,74 @@
+#include <iostream>
+
+using namespace std;
+
+class linkedlist{
+private:
+    struct Node{
+        string str;
+        Node *next;
+    };
+
+    Node *head = NULL;
+
+public:
+    void append( string st ){
+        Node *newItem = new Node;
+        newItem -> str = st;
+        newItem -> next = NULL;
+
+        if ( head == NULL ) head = newItem;
+        else{
+            Node *temp = head;
+            while ( temp -> next != NULL )
+                temp = temp -> next;
+            temp -> next = newItem;
+        }
+    }
+
+    void display(){
+        Node *temp = head;
+        while ( temp != NULL ){
+            cout << temp -> str << " ";
+            temp = temp -> next;
+        }
+    }
+
+    void appendAtpos( int pos, string st ){
+        Node *newItem = new Node;
+        newItem -> str = st;
+        newItem -> next = NULL;
+
+        if ( pos == 0 ){
+            if ( head == NULL )
+                head = newItem;
+            else{
+                newItem -> next = head;
+                head = newItem;
+            }
+        }
+
+        Node *temp = head;
+        for ( int i = 0; i < pos - 1 && temp -> next != NULL; ++i )
+            temp = temp -> next;
+        newItem -> next = temp -> next;
+        temp -> next = newItem;
+    }
+};
+
+int main()
+{
+    linkedlist obj;
+    obj.append( "Hello" );
+    obj.append( "World" );
+    obj.append( "Welcome" );
+    obj.append( "Glad" );
+    obj.append( "To" );
+    obj.append( "Meet" );
+    obj.append( "You" );
+    obj.append( "Bye" );
+    obj.append( "See" );
+    obj.append( "Ya" );
+    obj.display();
+    return 0;
+}

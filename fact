@@ -1,0 +1,33 @@
+#include <iostream>
+
+using namespace std;
+
+int factorial( int num );
+
+int main(){
+
+    int number;
+    double f = 1;
+    cout << "Enter integer number: ";
+    cin >> number;
+
+    cout << number <<"! = ";
+    for ( int i = number; i > 0; --i ){
+        if ( i == 1 )
+            cout << i << " ";
+        else{
+            cout << i << " * ";
+        }
+    }
+    cout << " = " << factorial( number );
+
+    return 0;
+}
+
+int factorial( int num ){
+    double fact = 1;
+    for ( int i = num; i > 0; --i ){
+        fact = fact * i;
+    }
+    return fact;
+}

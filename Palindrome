@@ -1,0 +1,24 @@
+#include <iostream>
+
+using namespace std;
+
+int main(){
+    char w[255], str[255];
+    bool isEquale = false;
+    cin >>  w;
+    int c = 0, i,j;
+    while ( w[c] != '\0' )++c;
+    for ( i = 0, j = c - 1; j >= 0; --j, ++i){
+        str[i] = w[j];
+        cout << str[i];
+    }
+    for ( i = 0; w[i] != '\0' && str[i] != '\0'; ++i ){
+        if ( str[i] != w[i] ) break;
+        else{
+            isEquale = true;
+            break;
+        }
+    }
+    if ( isEquale ) cout << "\nPalindrome!" << endl;
+    else cout << "\nis Not Palindrome!" << endl;
+}

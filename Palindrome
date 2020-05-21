@@ -3,17 +3,17 @@
 using namespace std;
 
 int main(){
-    char w[255], str[255];
+    string str1, str2 = "";
     bool isEquale = false;
-    cin >>  w;
+    cin >>  str1;
     int c = 0, i,j;
-    while ( w[c] != '\0' )++c;
+    while ( str1[c] != '\0' )++c;
     for ( i = 0, j = c - 1; j >= 0; --j, ++i){
-        str[i] = w[j];
-        cout << str[i];
+        str2[i] = str1[j];
+        cout << str2[i];
     }
-    for ( i = 0; w[i] != '\0' && str[i] != '\0'; ++i ){
-        if ( str[i] != w[i] ) break;
+    for ( i = 0; str1[i] != '\0' && str2[i] != '\0'; ++i ){
+        if ( str2[i] != str1[i] ) break;
         else{
             isEquale = true;
             break;

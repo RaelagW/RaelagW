@@ -1,0 +1,45 @@
+
+import java.util.Arrays;
+
+class matrix{
+    private int []arr = new int[11];
+    
+    matrix(){
+        for ( int i = 0; i < arr.length - 1; ++i ){
+            int rand = (int)(Math.random() * (25 - 0 + 1) + 0);
+            arr[i] = rand;
+        }
+        this.tidy();
+    }
+    
+    void add( int num ){
+        arr[0] = num;
+        this.tidy();
+    }
+    
+    private void tidy(){
+        int min, temp;
+        for ( int i = 0; i < arr.length - 1; ++i){
+           min = i;
+           for ( int j = i + 1; j < arr.length; ++j ){
+               if ( arr[min] > arr[j] ){
+                   temp = arr[min];
+                   arr[min] = arr[j];
+                   arr[j] = temp;
+               }
+           }
+        }
+    }
+    
+    public void print(){ System.out.println(Arrays.toString(arr)); }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        matrix mat = new matrix();
+        mat.print();
+        mat.add(100);
+        mat.print();
+    }
+    
+}

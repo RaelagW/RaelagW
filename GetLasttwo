@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() 
+{
+  // Variables section
+  int number = 40000021, dCounter = 0, l2Counter = 0, temp, con = 0, rem, d = 1;
+  temp = number;
+
+  // Number digit
+  while( number != 0 ){
+    dCounter += 1;
+    number /= 10;
+  }
+  number = temp;
+  cout << "Number digits = " << dCounter << endl;
+
+  // Get last two numbers
+  while( number != 0 ){
+    rem = number % 10;
+    con = con * d + rem;
+    d *= 10;
+    number /= 10;
+    ++l2Counter;
+    if ( l2Counter == 2 ) break;
+  }
+
+  // Because they got reversed we need to reverse them again
+  number = con;
+  con = 0;
+  while( number != 0 ){
+    rem = number % 10;
+    con = con * 10 + rem;
+    number /= 10;
+  }
+
+  cout << "Last two numbers of " << temp << " = " << con << endl;
+
+  return 0; 
+}

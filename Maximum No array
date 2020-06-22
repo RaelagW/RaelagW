@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main(){
+  int range;
+  cout << "Enter how many numbers u want to store: ";
+  cin >> range;
+  int temp, number;
+  cout << "Enter number[1]: ";
+  cin >> number;
+  temp = number;
+  for ( int i = 1; i < range; ++i ){
+    cout << "Enter number[" << i + 1 << "]: ";
+    cin >> number;
+    ( temp < number ? temp = number : temp = temp );
+  }
+  cout << "Maximum number is : " << temp << endl;
+  return 0;
+}

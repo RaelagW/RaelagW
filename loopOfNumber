@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+#define PW 1999
+int main(){
+  int x;
+  cout << "Enter -1 to break the loop: \n\n";
+  do{
+      cout <<"Enter number between ( 1000 - 9999 ): ";
+      cin >> x;
+      if ( x >= 1000 && x <= 9999 ) {
+        if ( x == PW ) cout << "Correct\n";
+        else  cout << "Wrong\n";
+      }else break;
+  }while( true );
+  return 0;
+}

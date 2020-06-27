@@ -1,0 +1,29 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+int main()
+{
+	ifstream fin;
+	fin.open("file1.txt");
+	string s;
+	getline(fin, s);
+	cout << "student name : " << s << '\n';
+	cout << "name length = " << s.size() << " letters\n";
+	getline(fin, s);
+	cout << s << '\n';
+	int a, b, c;
+	fin >> s >> a >> b >> c;
+	cout << "average = " << (a + b + c) / 3.0 << endl;
+	fin.close();
+	fin.open("file2.txt");
+	int a1, d1;
+	double b1, c1;
+	fin >> a1;
+	cout << "sin(" << a1 << ") = " << sin(a1 * 3.14 / 180) << endl;
+	fin >> b1 >> c1;
+	cout <<setprecision(2) << d1 << '^' << c1 << "=" << pow(c1, d1) << endl;
+	fin >> d1;
+	cout << "square root of " << a1 << " = " << sqrt(a1) << endl;
+}

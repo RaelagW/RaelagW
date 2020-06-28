@@ -8,7 +8,7 @@ int main()
     double r1, r2, r3, arr[6], radius[3];
     int i = 0, j = 0;
     ifstream fin;
-    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\circles.txt");
+    fin.open("circles.txt");
     if ( !fin.is_open() ) cout << "Cant open file!" << endl;
     else{
         fin >> r1 >> r2 >> r3;
@@ -29,7 +29,7 @@ int main()
     fin.close();
     i = 0;
     ofstream fout;
-    fout.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\areas.txt");
+    fout.open("areas.txt");
     if ( !fout.is_open() ) cout << "Cant open file!" << endl;
     else{
         fout << "Circle Areas: \n";

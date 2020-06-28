@@ -1,0 +1,5 @@
+public class learn {
+    public static void main(String[] args) {
+        System.out.println("Welcome to begginer task!");
+    }
+}

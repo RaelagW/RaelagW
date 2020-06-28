@@ -1,0 +1,48 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#define PI 3.14
+using namespace std;
+int main()
+{
+    double r1, r2, r3, arr[6], radius[3];
+    int i = 0, j = 0;
+    ifstream fin;
+    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\circles.txt");
+    if ( !fin.is_open() ) cout << "Cant open file!" << endl;
+    else{
+        fin >> r1 >> r2 >> r3;
+        radius[0] = r1; radius[1] = r2; radius[2] = r3;
+        while ( i < 3 ){
+            arr[i] = pow( radius[j] , 2 ) * PI;
+            ++j;
+            ++i;
+        }
+        j = 0;
+        while ( i < 6 )
+        {
+            arr[i] = 2 * radius[j] * PI;
+            ++j;
+            ++i;
+        }
+    }
+    fin.close();
+    i = 0;
+    ofstream fout;
+    fout.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\areas.txt");
+    if ( !fout.is_open() ) cout << "Cant open file!" << endl;
+    else{
+        fout << "Circle Areas: \n";
+        while ( i < 6 ) {
+            if ( i < 3 ){
+                fout << arr[i] << endl;
+            }else {
+                if ( i == 3 ) fout <<"\ncircumference of a circle: \n";
+                fout << arr[i] << endl;
+            }
+            ++i;
+        }
+    }
+    fout.close();
+    return 0;
+}

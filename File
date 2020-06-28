@@ -8,8 +8,8 @@ int main()
     double r1, r2, r3;
     ofstream fout;
     ifstream fin;
-    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\circles.txt");
     fout.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\areas.txt");
+    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\circles.txt");
     if ( !fin.is_open() && !fout.is_open() ) cout << "Cant open file!" << endl;
     else{
         fin >> r1 >> r2 >> r3;

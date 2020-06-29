@@ -1,0 +1,38 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+int main()
+{
+    string str, name;
+    double x, y, z, w;
+    double avg;
+    ifstream fin;
+    fin.open("file1.txt");
+    if( !fin.is_open() ) cout << "File not found!" << endl;
+    else{
+        getline(fin, str);
+        name = str;
+        cout << str << endl << endl;
+        getline(fin, str);
+        cout << str << endl;
+        cout << "\nName Length = " << name.length() << endl;
+        fin >> str >> x >> y >> z;
+        avg = ( ( ( x + y + z ) / 3 ) );
+        cout << "\nAverage = " << setprecision(4) << avg << endl;
+    }
+    fin.close();
+
+    fin.open("file2.txt");
+    if( !fin.is_open() ) cout << "File not found!" << endl;
+    else{
+        fin >> x;
+        fin >> y >> z;
+        fin >> w;
+        cout << "\n\nsin(" << x << ") = " << sin( x ) << endl;
+        cout << endl << y << "^" << z << " = " << pow( y, z ) << endl;
+        cout << "\nSquare root of " << w << " = " << sqrt( w ) << endl;
+    }
+    fin.close();
+}

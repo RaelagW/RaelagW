@@ -9,7 +9,7 @@ int main()
     double x, y, z, w;
     double avg;
     ifstream fin;
-    fin.open("file1.txt");
+    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\file1.txt");
     if( !fin.is_open() ) cout << "File not found!" << endl;
     else{
         getline(fin, str);
@@ -24,7 +24,7 @@ int main()
     }
     fin.close();
 
-    fin.open("file2.txt");
+    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\file2.txt");
     if( !fin.is_open() ) cout << "File not found!" << endl;
     else{
         fin >> x;

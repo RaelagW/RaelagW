@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std;
+int main(){
+  int n, x;
+  cout << "Enter two integer numbers respectiveley: ";
+  cin >> n >> x;
+  if ( n > x ) {
+    cout << n * x - 3 << endl;
+  }else if ( n == x ){
+    cout << n + 3 * x << endl;
+  }else{
+    cout << 3 * x + 2 * x << endl;
+  }
+  return 0;
+}

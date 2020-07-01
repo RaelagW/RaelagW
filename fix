@@ -1,0 +1,41 @@
+#include <iostream>
+#include <fstream>
+#include<cmath>
+#include <cstdlib>
+#include <math.h>
+#include <string>
+using namespace std;
+
+int main(){
+
+ifstream FileText;
+ifstream File2Text;
+
+FileText.open("file1.txt");
+File2Text.open("file2.txt");
+
+string Name,Major;
+double average;
+int z,v,f;
+double x, y;
+FileText >> x >> y >> z >> v >> f;
+double d = (z+v+f)/3;
+
+cout << "Student Name: " << Name << endl;
+cout <<"Major :"<< Major << endl;
+cout << "Name Length = " << Name.length() << endl;
+cout << "Average = " << average << endl;
+
+
+float r, t, p;
+
+File2Text >> r >> t >> y >> p;
+
+cout << "sin(30.00) = " << sin(r)  << endl;
+cout << "2.50^3.00 =" << pow(t,y) << endl;
+cout << "square root of 15.00 =" << sqrt(p) << endl;
+
+system("PAUSE");
+
+return 0;
+}

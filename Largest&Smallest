@@ -1,0 +1,20 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    float number, max, min;
+    cout << "Enter number[" << 1 << "]: ";
+    cin >> number;
+    max = min = number;
+    for( int i = 2; i <= 20; ++i ){
+        cout << "Enter number[" << i << "]: ";
+        cin >> number;
+        if( number < min ) min = number;
+        if( number > max ) max = number;
+    }
+    cout << "Largest number = " << max << endl;
+    cout << "Smallest number = " << min << endl;
+    return 0;
+}

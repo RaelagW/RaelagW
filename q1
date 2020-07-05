@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+int equalSilces( int, int, int );
+
+int main()
+{
+    cout << equalSilces(11, 5, 3 ) << endl;
+    return 0;
+}
+
+int equalSilces( int totalSilces, int noRecipients, int silcesEach ){
+    bool isTrue = false;
+    if( noRecipients * silcesEach < totalSilces ) { isTrue = true; return ( totalSilces - ( noRecipients * silcesEach ) ); }
+    else if( noRecipients * silcesEach > totalSilces ){ return ( ( noRecipients * silcesEach ) - totalSilces ); }
+    else return 0;
+}

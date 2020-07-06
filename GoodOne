@@ -1,0 +1,78 @@
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+int main()
+{
+    int op;
+    menu:
+    {
+        cout << "Choose option: \n\n";
+        cout << "1.Calculate length.\n";
+        cout << "2.Read number.\n\n";
+        cout << "0.Exit.\n";
+        cin >> op;
+    }
+    switch(op)
+    {
+        case 1:
+        {
+            double cm;
+            cout << "\nEnter your length with cm unit: ";
+            cin >> cm;
+            double m = cm / 100.0;
+            if(m > 1.80)
+            {
+                cout << "you are tall" << endl;
+            }
+            else
+            {
+                cout << "Your length = " << m << endl;
+            }
+            cout << "\n1.Back.";
+            cout << "\n0.Exit.\n";
+            int c;
+            cin >> c;
+            if (c == 1)
+            {
+                system("CLS");
+                goto menu;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        case 2:
+        {
+            int number;
+            cout << "\nEnter number: ";
+            cin >> number;
+            if(number % 5 == 0)
+            {
+                cout << number << " mod " << 5 << "  = 0" << endl;
+            }
+            else
+            {
+                cout << number << " mod " << 5 << " != 0" << endl;
+            }
+            cout << "\n1.Back.";
+            cout << "\n0.Exit.\n";
+            int c;
+            cin >> c;
+            if (c == 1)
+            {
+                system("CLS");
+                goto menu;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        default : return 0;
+    }
+
+    return 0;
+}

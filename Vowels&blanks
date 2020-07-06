@@ -6,7 +6,7 @@ int main()
 {
     string str;
     fstream fin;
-    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\infile.txt");
+    fin.open("infile.txt");
     if( !fin.is_open() ) cout << "File not found!";
     else{
         getline(fin, str);

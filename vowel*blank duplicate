@@ -6,7 +6,7 @@ int main()
 {
     int i = 0;
     string line, arr[100];
-    fstream file ("C:\\Users\\m7mmd\\OneDrive\\Desktop\\infile.txt");
+    fstream file ("infile.txt");
     if(!file.is_open())
     {
         cout << "File not found!";

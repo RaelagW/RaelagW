@@ -1,0 +1,30 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    string str;
+    fstream fin;
+    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\infile.txt");
+    if( !fin.is_open() ) cout << "File not found!";
+    else{
+        getline(fin, str);
+    }
+    fin.close();
+    int i, noVowels, noBlanks;
+    i = noVowels = noBlanks = 0;
+    while( str[i] != '\0' ){
+        if( str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u'
+        || str[i] == 'A' || str[i] == 'E' || str[i] == 'I' || str[i] == 'O' || str[i] == 'U')
+        ++noVowels;
+
+        if( str[i] == ' ' ) ++noBlanks;
+        ++i;
+    }
+
+    cout << "Number of vowels = " << noVowels << endl;
+    cout << "Number of blanks = " << noBlanks << endl;
+
+    return 0;
+}

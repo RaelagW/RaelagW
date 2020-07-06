@@ -1,0 +1,51 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    int i = 0;
+    string line, arr[100];
+    fstream file ("C:\\Users\\m7mmd\\OneDrive\\Desktop\\infile.txt");
+    if(!file.is_open())
+    {
+        cout << "File not found!";
+    }
+    else
+    {
+        while(file)
+        {
+            getline(file, line);
+            arr[i] = line;
+            i++;
+        }
+    }
+    file.close();
+
+    int vowel, blank;
+    vowel = blank = 0;
+
+    for(int j = 0; j <= i; j++)
+    {
+        line = arr[j];
+        for(int k = 0; k<line.length(); k++)
+        {
+            if(line[k] == 'a' || line[k] == 'e' || line[k] == 'i' || line[k] == 'o' || line[k] == 'u')
+            {
+                vowel++;
+            }
+            else if(line[k] == 'A' || line[k] == 'E' || line[k] == 'I' || line[k] == 'O' || line[k] == 'U')
+            {
+                vowel++;
+            }
+            else if(line[k] == ' ')
+            {
+                blank++;
+            }
+        }
+    }
+
+    cout << "Blanks = " << blank << endl;
+    cout << "Vowels = " << vowel << endl;
+    return 0;
+}

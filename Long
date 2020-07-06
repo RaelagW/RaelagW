@@ -1,0 +1,119 @@
+#include <iostream>
+
+using namespace std;
+
+class dynamic{
+private:
+    int *arr1, *arr2, index;
+public:
+    dynamic( int Size ){
+        if( Size > 50 ){
+            Size = 50;
+            arr1 = new int[Size];
+            arr2 = new int[Size];
+        }else if( Size < 10 ){
+            Size = 10;
+            arr1 = new int[Size];
+            arr2 = new int[Size];
+        }else{
+            arr1 = new int[Size];
+            arr2 = new int[Size];
+        }
+        index = Size;
+    }
+
+    dynamic(){
+        arr1 = new int[10];
+        arr2 = new int[10];
+        index = 10;
+    }
+
+    void read(){
+        for( int i = 0; i < index; ++i ){
+            cout << "Array1: Element[" << i + 1 <<"]: ";
+            cin >> *( arr1 + i );
+        }
+
+        cout << endl;
+
+        for( int j = 0; j < index; ++j ){
+            cout << "Array2: Element[" << j + 1 <<"]: ";
+            cin >> *( arr2 + j );
+        }
+
+        cout << endl;
+    }
+
+    ~dynamic(){
+        delete arr1;
+        delete arr2;
+    }
+
+    void print(){
+        cout << "\nFirst array elements: \n";
+        for( int i = 0; i < index; ++i )
+            cout << "Element[" << i + 1 << "] = " << *( arr1 + i ) << endl;
+
+        cout << "\n\nSecond array elements: \n";
+        for( int j = 0; j < index; ++j )
+            cout << "Element[" << j + 1 << "] = " << *( arr2 + j ) << endl;
+    }
+
+    void replaceContents(){
+        int half = index / 2 ;
+        for( int j = half, i = 0; i < half; ++i, ++j )
+        {
+            *( arr2 + j ) = *( arr1 + i );
+        }
+    }
+
+    void setValue( int loc, int e ){
+        if( loc < 0 || loc > index - 1 ) return;
+        else{
+            *(arr1 + loc ) = e;
+            *(arr2 + loc ) = e;
+        }
+    }
+
+    int *concatinate(){
+        int *mat = new int[index*2];
+        for( int i = 0, j = index; i < index && j < index * 2 ; ++i, ++j ){
+            mat[i] = *( arr1 + i );
+            mat[j] = *( arr2 + i );
+        }
+        return mat;
+    }
+
+    int getSize(){
+        return index;
+    }
+
+    dynamic operator +( dynamic d ){
+        dynamic temp;
+        for( int i = 0; i < index; ++i ) {
+            temp.arr1[i] = arr1[i] + d.arr1[i];
+            temp.arr2[i] = arr2[i] + d.arr2[i];
+        }
+        return temp;
+    }
+
+    int add(){
+        int sum = 0;
+        for( int i = 0; i < index; ++i )
+        {
+            sum += arr1[i] + arr2[i];
+        }
+        return sum;
+    }
+    friend bool operator > ( dynamic d1, dynamic d2 );
+};
+
+bool operator > ( dynamic d1, dynamic d2 ){
+    if( d1.add() + 100 > d2.add() ) return true;
+    else return false;
+}
+
+int main()
+{
+    return 0;
+}

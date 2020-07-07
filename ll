@@ -1,3 +1,7 @@
+#include <iostream>
+
+using namespace std;a
+
 template <class ll>
 class LinkedList{
 private:
@@ -113,3 +117,7 @@ public:
         }
     }
 };
+
+int main(){
+    return 0;
+}

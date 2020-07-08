@@ -6,9 +6,9 @@ int main()
 {
     string line;
     fstream file;
-    int k, numOFVowels, numOfBlanks;
+    int k, numOFVowels, numOfBlanks, lines = 0;
     k = numOFVowels = numOfBlanks = 0;
-    file.open("infile.txt");
+    file.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\infile.txt");
     if(file.is_open()){
         while(file)
         {
@@ -23,6 +23,7 @@ int main()
                 k++;
             }
             k = 0;
+            lines++;
         }
     }
     else{
@@ -32,6 +33,7 @@ int main()
 
     cout << "Number of vowels = " << numOFVowels << endl;
     cout << "Number of blanks = " << numOfBlanks << endl;
+    cout << "Number of lines = " << lines << endl;
 
     return 0;
 }

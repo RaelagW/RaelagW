@@ -1,0 +1,37 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    string line;
+    fstream file;
+    int k, numOFVowels, numOfBlanks;
+    k = numOFVowels = numOfBlanks = 0;
+    file.open("infile.txt");
+    if(file.is_open()){
+        while(file)
+        {
+            getline(file, line);
+            string temp = line;
+            while( temp[k] != '\0' ){
+                if( temp[k] == 'a' || temp[k] == 'e' || temp[k] == 'i' || temp[k] == 'o' || temp[k] == 'u'
+                || temp[k] == 'A' || temp[k] == 'E' || temp[k] == 'I' || temp[k] == 'O' || temp[k] == 'U')
+                numOFVowels++;
+
+                if( temp[k] == ' ' ) numOfBlanks++;
+                k++;
+            }
+            k = 0;
+        }
+    }
+    else{
+        cout << "File not found!\n";
+    }
+    file.close();
+
+    cout << "Number of vowels = " << numOFVowels << endl;
+    cout << "Number of blanks = " << numOfBlanks << endl;
+
+    return 0;
+}

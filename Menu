@@ -1,0 +1,63 @@
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+int main()
+{
+    int choose;
+    cout << "Menu: \n\n";
+    cout << "1.Calculate length.\n";
+    cout << "2.Read number.\n\n";
+    cout << "0.Exit.\n";
+    cin >> choose;
+    switch(choose)
+    {
+        case 1:
+        {
+            system("CLS");
+            double cm;
+            cout << "Enter your length with cm unit: ";
+            cin >> cm;
+            double m = cm / 100.0;
+            if(m > 1.80)
+            {
+                cout << "you are tall" << endl;
+            }
+            else
+            {
+                cout << "Your length = " << m << endl;
+            }
+            cout << "\n0.Exit.\n\n";
+            cin >> choose;
+            if (choose == 0)
+            {
+                return 0;
+            }else return 0;
+        }
+        case 2:
+        {
+            system("CLS");
+            int n;
+            cout << "Enter integer number: ";
+            cin >> n;
+            if(n % 5 == 0)
+            {
+                cout << n << " mod " << 5 << "  = 0" << endl;
+            }
+            else
+            {
+                cout << n << " mod " << 5 << " != 0" << endl;
+            }
+            cout << "\n0.Exit.\n\n";
+            cin >> choose;
+            if (choose == 0)
+            {
+                return 0;
+            }else return 0;
+        }
+        default : return 0;
+    }
+
+    return 0;
+}

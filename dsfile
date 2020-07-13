@@ -1,0 +1,176 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+struct linkedlist{
+    struct Node{
+        string data;
+        int count;
+        Node *next;
+        Node(string data){
+            this->data = data;
+            count = 0;
+            this->next = NULL;
+        }
+    };
+
+    Node *front, *rear;
+    int length;
+
+    linkedlist(){
+        front = rear = NULL;
+        length = 0;
+    }
+
+    bool isEmpty(){
+        return front == NULL && rear == NULL;
+    }
+
+    void addFromFront(string data){
+        Node *newNode = new Node(data);
+        newNode->count++;
+        if(isEmpty()){front = rear = newNode;}
+        else{
+            newNode->count = check(newNode, data);
+            newNode->next = front;
+            front = newNode;
+        }
+        ++length;
+    }
+
+    void addFromRear(string data){
+        Node *newNode = new Node(data);
+        newNode->count++;
+        if(isEmpty()){front = rear = newNode;}
+        else{
+            newNode->count = check(newNode, data);
+            rear->next = newNode;
+            rear = newNode;
+        }
+        ++length;
+    }
+
+    void add(int loc, string data){
+        if(loc < 0 || loc > length) return;
+        else if(loc == 0)addFromFront(data);
+        else if(loc == length)addFromRear(data);
+        else{
+            Node *newNode = new Node(data);
+            newNode->count++;
+            newNode->count = check(newNode, data);
+            Node *temp = front->next;
+            for(int i = 0; i < loc && temp != NULL; ++i)temp = temp->next;
+            if(temp == NULL) return;
+            newNode->next = temp->next;
+            temp->next = newNode;
+            ++length;
+        }
+    }
+
+    void removeAtFront(){
+        if(isEmpty()) return;
+        else if(length == 1)front = rear = NULL;
+        else{
+            Node* temp = front;
+            front = front->next;
+            delete temp;
+        }
+        --length;
+    }
+
+    void removeAtRear(){
+        if(isEmpty()) return;
+        else if(length == 1)front = rear = NULL;
+        else{
+            Node* temp = front;
+            while(temp->next!=rear) temp = temp->next;
+            temp->next = NULL;
+            temp->count--;
+            rear = temp;
+        }
+        --length;
+    }
+
+    void remove(int loc){
+        if(loc < 0 || loc > length) return;
+        else if(isEmpty()) return;
+        else if(loc == 0) removeAtFront();
+        else if(loc == length - 1) removeAtRear();
+        else{
+            Node* temp = front;
+            for(int i = 1; i < loc && temp != NULL; ++i) temp = temp->next;
+            Node *temp2 = temp;
+            temp = temp->next;
+            temp2->next = temp->next;
+            delete temp;
+            --length;
+        }
+    }
+
+    void print(){
+        if(isEmpty()) return;
+        else{
+            Node* temp = front;
+            while(temp != NULL){
+                cout << temp->data << " ";
+                temp = temp->next;
+            }
+            cout << rear->count;
+        }
+    }
+
+    int check(Node *w, string word){
+        int i = 1;
+        Node* temp = front;
+        while(temp != NULL){
+            if(temp->data == word) ++i;
+            temp = temp->next;
+        }
+        w->count = i;
+        return w->count;
+    }
+
+    void display(){
+        Node *right, *left;
+        right = front;
+        left = NULL;
+        while(right != NULL){
+            left = right;
+            if(left->data.compare(right->data) > 0){
+                string str;
+                int temp;
+                str = left->data;
+                temp = left->count;
+                left->data = right->data;
+                left->count = right->count;
+                right->data = str;
+                right->count = temp;
+            }
+            right = right->next;
+        }
+
+        Node*temp = front;
+        while(temp!= NULL){
+            cout << "Word: " << temp->data << " - count: " << temp->count << "\n";
+            temp = temp->next;
+        }
+    }
+};
+
+int main()
+{
+    linkedlist ll;
+    string line;
+    ifstream fin;
+    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\data.txt");
+    if(!fin.is_open()) cout << "File not found!\n";
+    else{
+        while(fin>>line){
+            ll.addFromRear(line);
+        }
+    }
+    fin.close();
+    ll.display();
+    return 0;
+}

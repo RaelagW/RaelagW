@@ -163,7 +163,7 @@ int main()
     linkedlist ll;
     string line;
     ifstream fin;
-    fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\data.txt");
+    fin.open("data.txt");
     if(!fin.is_open()) cout << "File not found!\n";
     else{
         while(fin>>line){

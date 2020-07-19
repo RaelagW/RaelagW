@@ -1,0 +1,77 @@
+#include <iostream>
+
+using namespace std;
+
+static int i = 1;
+
+void getData(int &y, int &m, int &d);
+int totalDays(int y, int m, int d, int cy, int cm , int cd);
+bool isYounger( int bd1 , int bd2);
+
+int main(){
+
+    int y, m ,d;
+    getData(y, m ,d);
+    ++i;
+    int y1, m1, d1;
+    getData(y1, m1, d1);
+    ++i;
+    int cy, cm, cd;
+    getData(cy, cm, cd);
+    int bd1 = totalDays(y, m, d, cy, cm , cd);
+    int bd2 = totalDays(y1, m1, d1, cy, cm , cd);
+    cout << "\nTotal number of days for " << y << "/" << m << "/" << d << " from current date " <<
+    cy << "/" << cm << "/" << cd << " = " << bd1;
+
+    cout << "\nTotal number of days for " << y1 << "/" << m1 << "/" << d1 << " from current date " <<
+    cy << "/" << cm << "/" << cd << " = " << bd2;
+    bool isTrue = isYounger(bd1, bd2);
+    if(isTrue){
+        cout << "\nStudent with birthdate " << y << "/" << m << "/" << d << " is younger than student with birthdate "
+        << y1 << "/" << m1 << "/" << d1 << endl;
+    }else{
+        cout << "\nStudent with birthdate " << y1 << "/" << m1 << "/" << d1 << " is younger than student with birthdate "
+        << y << "/" << m << "/" << d << endl;
+    }
+
+    return 0;
+}
+
+void getData(int &y, int &m, int &d){
+    if(i == 1){
+        cout << "Enter first birth date: ";
+        cin >> y >> m >> d;
+    }
+    else if(i == 2){
+        cout << "Enter second birth date: ";
+        cin >> y >> m >> d;
+    }else{
+        cout << "Enter current year: ";
+        cin >> y >> m >> d;
+    }
+}
+
+int totalDays(int y, int m, int d, int cy, int cm , int cd){
+    int days;
+    switch(cm){
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12: days = ((31 - (d-1)) + (cd-1)); break;
+        case 4:
+        case 6:
+        case 9:
+        case 11: days = ((30 - (d-1)) + (cd-1)); break;
+        case 2: days = ((28 - (d-1)) + (cd-1)); break;
+    }
+
+    int numOfDays = (((cy - y) * (365)) - days - days);
+    return numOfDays;
+}
+
+bool isYounger( int bd1 , int bd2){
+    return bd1 < bd2;
+}

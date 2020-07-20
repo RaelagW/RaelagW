@@ -1,0 +1,118 @@
+#include <iostream>
+
+using namespace std;
+
+class linkedlist{
+    struct Node{
+        int data;
+        Node *next;
+        Node(int data){
+            this->data = data;
+            next = NULL;
+        }
+    };
+
+    Node *head, *tail;
+    int numOfNodes;
+public:
+
+    linkedlist(){
+        head = tail = NULL;
+        numOfNodes = 0;
+    }
+
+    bool isEmpty(){
+        return head == NULL && tail == NULL;
+    }
+
+    void add(int loc, int data){
+        if(loc < 0 || loc > numOfNodes) return;
+        Node *newNode = new Node(data);
+        if(loc == 0){
+            if(isEmpty()){
+                head = tail = newNode;
+            }else{
+                newNode->next = head;
+                head = newNode;
+            }
+            ++numOfNodes;
+        }else if(loc == numOfNodes){
+            if(isEmpty()){
+                head = tail = newNode;
+            }else{
+                tail->next = newNode;
+                tail = newNode;
+            }
+            ++numOfNodes;
+        }else{
+            Node *temp = head;
+            for(int i = 1; i < loc && temp != NULL; ++i) temp = temp->next;
+            newNode->next = temp->next;
+            temp->next = newNode;
+            ++numOfNodes;
+        }
+    }
+
+    void print(){
+        if(isEmpty()) return;
+        else{
+            Node*temp = head;
+            while(temp != NULL){
+                cout << temp->data << " ";
+                temp = temp->next;
+            }
+        }
+        cout << endl;
+    }
+
+    void printOdd(){
+        if(isEmpty()) return;
+        else{
+            Node*temp = head;
+            while(temp != NULL){
+                if(temp->data%2 == 0) temp = temp->next;
+                else{
+                    cout << temp->data << " ";
+                    temp = temp->next;
+                }
+            }
+        }
+        cout << endl;
+    }
+
+    void printEven(){
+        if(isEmpty()) return;
+        else{
+            Node*temp = head;
+            while(temp != NULL){
+                if(temp->data%2 != 0) temp = temp->next;
+                else{
+                    cout << temp->data << " ";
+                    temp = temp->next;
+                }
+            }
+        }
+        cout << endl;
+    }
+
+    int getNumberOfNodes(){
+        return numOfNodes;
+    }
+
+};
+
+int main(){
+    linkedlist ll;
+    ll.add(0, 2);
+    ll.add(1, 4);
+    ll.add(1, 3);
+    cout << "linkedlist nodes: ";
+    ll.print();
+    cout << "linkedlist odd numbers: ";
+    ll.printOdd();
+    cout << "linkedlist even numbers: ";
+    ll.printEven();
+    int n = ll.getNumberOfNodes();
+    cout << "number of nodes = " << n << endl;
+    return 0;
+}

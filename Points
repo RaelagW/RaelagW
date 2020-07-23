@@ -1,0 +1,119 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct Point3D{
+    int x;
+    int y;
+    int z;
+};
+
+struct Node{
+    Point3D p;
+    Node* next;
+};
+
+Node *insert(Node *head, Point3D p){
+    Node *newNode = new Node;
+    newNode->p = p;
+    newNode->next = NULL;
+    if(head == NULL) head = newNode;
+    else{
+        Node*temp = head;
+        while(temp ->next != NULL) temp = temp->next;
+        temp->next = newNode;
+    }
+    return head;
+}
+
+void print(Node *head){
+    if(head == NULL) return;
+    else{
+        Node* temp = head;
+        while(temp != NULL){
+            cout << temp->p.x << "," << temp->p.y << "," << temp->p.z << "   ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+}
+
+int length(Node *head){
+    if(head == NULL) return 0;
+    int sum = 0;
+    Node *cur = head;
+    Node *prev = NULL;
+    while(cur->next != NULL){
+        prev = cur;
+        cur = cur->next;
+        sum += pow(pow((cur->p.x - prev->p.x), 2) + pow((cur->p.y - prev->p.y), 2) + pow((cur->p.z - prev->p.z), 2), 0.5);
+    }
+    return sum;
+}
+
+Node *merg(Node *head1, Node *head2){
+    Node *collector = NULL;
+    Node *temp = head1;
+    Node *temp2 = NULL;
+    while(temp!= NULL){
+        Node *newNode = new Node;
+        newNode->p = temp->p;
+        newNode->next = NULL;
+        if(collector == NULL){
+            collector = newNode;
+        }else{
+            temp2 = collector;
+            while(temp2->next != NULL) temp2 = temp2->next;
+            temp2->next = newNode;
+        }
+        temp = temp->next;
+    }
+
+    temp = head2;
+    temp2 = NULL;
+    while(temp!= NULL){
+        Node *newNode = new Node;
+        newNode->p = temp->p;
+        newNode->next = NULL;
+        if(collector == NULL){
+            collector = newNode;
+        }else{
+            temp2 = collector;
+            while(temp2->next != NULL) temp2 = temp2->next;
+            temp2->next = newNode;
+        }
+        temp = temp->next;
+    }
+    return collector;
+}
+
+int main(){
+    Node *head1 = NULL;
+
+    Point3D p1 {0, 0, 1};
+    Point3D p2 {0, 0, 2};
+    Point3D p3 {0, 0, 0};
+    Point3D p4 {2, 0, 1};
+    Point3D p5 {0, 0, 2};
+    Point3D p6 {0, 0, 6};
+
+    head1 = insert(head1, p1);
+    head1 = insert(head1, p2);
+    head1 = insert(head1, p3);
+    head1 = insert(head1, p4);
+    head1 = insert(head1, p5);
+    head1 = insert(head1, p6);
+    cout << length(head1) << endl;
+
+    Node *head2 = NULL;
+    Point3D p7 {0, 0, 1};
+    Point3D p8 {3, 0, 2};
+    head2 = insert(head2, p7);
+    head2 = insert(head2, p8);
+
+    Node *head3 = NULL;
+    head3 = merg(head1, head2);
+    print(head3);
+    return 0;
+}

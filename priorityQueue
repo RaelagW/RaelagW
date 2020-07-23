@@ -56,6 +56,7 @@ public:
     }
 
     void push(int data, int p){
+        if(p < 0) return;
         Node* newNode = new Node(data, p);
         if(isEmpty()){
             head = newNode;

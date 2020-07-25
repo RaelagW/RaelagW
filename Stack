@@ -1,0 +1,87 @@
+#include <iostream>
+
+using namespace std;
+
+class arrStack{
+private:
+    int *arr;
+    int top;
+    const int CAPACITY = 255;
+    int itemCount;
+public:
+    arrStack(){
+        arr = new int[CAPACITY];
+        top = -1;
+        itemCount = 0;
+    }
+
+    arrStack(int cap){
+        if(cap > 1){
+            arr = new int[CAPACITY];
+        }else{
+            arr = new int[cap];
+        }
+        top = -1;
+        itemCount = 0;
+    }
+
+    bool isEmpty(){
+        return top == -1;
+    }
+
+    void push(int data){
+        arr[++top] = data;
+        ++itemCount;
+    }
+
+    void pop(){
+        if(isEmpty()) return;
+        else{
+            --top;
+            --itemCount;
+        }
+    }
+
+    int numberOfItems(){
+        return itemCount;
+    }
+
+    void add10(){
+        int temp = top;
+        for(int i = top; i >= 0; --i) arr[i] += 10;
+        top = temp;
+    }
+
+    void transfer(arrStack &stk){
+        for(int i = 0; i <= top; ++i) stk.arr[i] = this->arr[i];
+        stk.itemCount = this->itemCount;
+        stk.top = this->top;
+    }
+
+    void print(){
+        if(isEmpty()) return;
+        else{
+            for(int i = top; i >= 0; --i) cout << arr[i] << " ";
+            cout << endl;
+        }
+    }
+};
+
+int main(){
+    arrStack stack;
+    stack.push(2);
+    stack.push(4);
+    stack.push(6);
+    stack.push(8);
+    stack.push(10);
+    cout << "First Stack:\n";
+    stack.print();
+    cout << stack.numberOfItems() << endl;
+    arrStack s;
+    // transfer from stack to s
+    stack.transfer(s);
+    cout << "Second Stack Stack:\n";
+    s.print();
+    cout << s.numberOfItems() << endl;
+    return 0;
+}

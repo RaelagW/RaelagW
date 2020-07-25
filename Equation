@@ -1,0 +1,38 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+bool isPrime = false;
+
+void getInteger(int &x){
+    cout << "Enter integer number: ";
+    cin >> x;
+}
+
+bool is_prime(int x){
+    if(x <= 1) return false;
+
+    for(int i = 2; i < x; ++i) if(x % i == 0) return false;
+    return true;
+}
+
+double calc(int x){
+    if(isPrime) return (pow(2, x) / (5 * x + 1));
+    else ((x + 1) / sqrt(5));
+}
+
+int main(){
+    int x;
+    getInteger(x);
+    bool flag = is_prime(x);
+    //(flag == true ? cout << "true" : cout << "false");
+    //cout << endl;
+    if(flag == true) isPrime = true;
+    double summation = 0;
+    for(int i = x; i <= x + 5; ++i){
+        summation += calc(i);
+    }
+    cout << "summation = "<< summation;
+    return 0;
+}

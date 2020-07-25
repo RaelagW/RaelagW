@@ -3,8 +3,6 @@
 
 using namespace std;
 
-bool flag = false;
-
 void getInteger(int &x){
     cout << "Enter positive integer: ";
     cin >> x;
@@ -34,9 +32,6 @@ double calc(int x){
 int main(){
     int x;
     getInteger(x);
-    if(is_prime(x)){
-        flag = true;
-    }
     double summation = 0;
     for(int i = x; i <= x + 5; ++i){
         summation += calc(i);

@@ -1,0 +1,91 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+// Constant For Matrices Default Size IF Condition an't Met
+#define CAPACITY 5
+
+int main(){
+    // Operation Variable Type Character
+    char operation;
+    // Guide for user!
+    cout << "Enter operation(+, -, /, *): ";
+    cin >> operation;
+    // Operation input
+    if(operation != '+' && operation != '-' && operation != '/' && operation != '*') return 0;
+    // 2 Pointers For Matrices For Dynamic Allocate Memory + Their Size
+    int *matrix1, *matrix2;
+    int size;
+    // Ask User To Enter Matrices Size
+    cout << "Enter matrices size: ";
+    cin >> size;
+    // Check Size If It Allowed Take It Value Else Take Default one
+    (size <= 0 ? size = CAPACITY, matrix1 = new int[CAPACITY], matrix2 = new int[CAPACITY] :
+    matrix1 = new int[size], matrix2 = new int[size]);
+    // Insert Data Into Matrix1
+    cout << "\nMatrix one input: \n";
+    for(int i = 0; i < size; ++i){
+        cout << "Matrix[" << i + 1 << "]: ";
+        cin >> matrix1[i];
+    }
+    // Insert Data Into Matrix2
+    cout << "\nMatrix two input: \n";
+    for(int i = 0; i < size; ++i){
+        cout << "Matrix[" << i + 1 << "]: ";
+        cin >> matrix2[i];
+    }
+    cout << endl;
+    // File Variable
+    ofstream fout;
+    // File Directorey
+    fout.open("result.txt");
+    // File State
+    if(!fout.is_open()){
+        cout << "File Not Found!";
+        return 0;
+    }else{
+        // Action Depends On User Operation Input
+        switch(operation){
+            // If +
+            case '+':
+                fout << "[Matrix1 " << operation << " Matrix2]" << endl;
+                fout << "---------" <<    "-"    << "---------" << endl;
+                 for(int i = 0; i < size; ++i){
+                    cout << matrix1[i] << " + " << matrix2[i] << " = " << matrix1[i] + matrix2[i] << endl;
+                    fout << matrix1[i] << " + " << matrix2[i] << " = " << matrix1[i] + matrix2[i] << endl;
+                }
+                break;
+            // If -
+            case '-':
+                fout << "[Matrix1 " << operation << " Matrix2]" << endl;
+                fout << "---------" <<    "-"    << "---------" << endl;
+                for(int i = 0; i < size; ++i){
+                    cout << matrix1[i] << " - " << matrix2[i] << " = " << matrix1[i] - matrix2[i] << endl;
+                    fout << matrix1[i] << " - " << matrix2[i] << " = " << matrix1[i] - matrix2[i] << endl;
+                }
+                break;
+            // If /
+            case '/':
+                fout << "[Matrix1 " << operation << " Matrix2]" << endl;
+                fout << "---------" <<    "-"    << "---------" << endl;
+                for(int i = 0; i < size; ++i){
+                    cout << matrix1[i] << " / " << matrix2[i] << " = " << matrix1[i] / matrix2[i] << endl;
+                    fout << matrix1[i] << " / " << matrix2[i] << " = " << matrix1[i] / matrix2[i] << endl;
+                }
+                break;
+            // If *
+            case '*':
+                fout << "[Matrix1 " << operation << " Matrix2]" << endl;
+                fout << "---------" <<    "-"    << "---------" << endl;
+                for(int i = 0; i < size; ++i){
+                    cout << matrix1[i] << " * " << matrix2[i] << " = " << matrix1[i] * matrix2[i] << endl;
+                    fout << matrix1[i] << " * " << matrix2[i] << " = " << matrix1[i] * matrix2[i] << endl;
+                }
+                break;
+        }
+    }
+    // Close After Operations Done
+    fout.close();
+    return 0;
+}

@@ -1,0 +1,26 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    float g1, g2, g3, g4, g5, avg;
+    cout << "Enter Grade1: ";
+    cin >> g1;
+    cout << "Enter Grade2: ";
+    cin >> g2;
+    cout << "Enter Grade3: ";
+    cin >> g3;
+    cout << "Enter Grade4: ";
+    cin >> g4;
+    cout << "Enter Grade5: ";
+    cin >> g5;
+    avg = ((g1 + g2 + g3 + g4 + g5) / 5);
+    cout <<"\nGrade1 = " << g1;
+    cout <<"\nGrade2 = " << g2;
+    cout <<"\nGrade3 = " << g3;
+    cout <<"\nGrade4 = " << g4;
+    cout <<"\nGrade5 = " << g5;
+    cout <<"\nAverage = " << avg;
+    return 0;
+}

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-bool isPrime = false;
+//bool isPrime = false;
 
 void getInteger(int &x){
     cout << "Enter integer number: ";
@@ -18,17 +18,18 @@ bool is_prime(int x){
 }
 
 double calc(int x){
-    if(isPrime) return (pow(2, x) / (5 * x + 1));
-    else ((x + 1) / sqrt(5));
+    //if(isPrime) return (pow(2, x) / (5 * x + 1));
+    if(is_prime(x)) return (pow(2, x) / (5 * x + 1));
+    else return ((x + 1) / sqrt(x));
 }
 
 int main(){
     int x;
     getInteger(x);
-    bool flag = is_prime(x);
+    //bool flag = is_prime(x);
     //(flag == true ? cout << "true" : cout << "false");
     //cout << endl;
-    if(flag == true) isPrime = true;
+    //if(flag == true) isPrime = true;
     double summation = 0;
     for(int i = x; i <= x + 5; ++i){
         summation += calc(i);

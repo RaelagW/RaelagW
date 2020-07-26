@@ -1,0 +1,25 @@
+abstract class geometricShape{
+    abstract double getArea();
+}
+
+class Square extends geometricShape{
+    private int x;
+    Square(){
+        x = 0;
+    }
+    Square(int x){
+        this.x = x;
+    }
+    
+    @Override
+    double getArea(){
+        return x*x;
+    }
+}
+
+public class exam {
+    public static void main(String[] args) {
+        Square s = new Square(4);
+        System.out.println(s.getArea());
+    }
+}

@@ -1,0 +1,15 @@
+import java.io.*;
+public class text {
+    public static void main(String[] args) {
+        try{
+            FileWriter writer = new FileWriter("Info.txt");
+            writer.write("Name: Unkowen\n");
+            writer.write("UID: 123456789\n");
+            writer.write("Collage: Unkowen\n");
+            writer.write("Avarage: 96\n");
+            writer.close();
+        }catch(IOException IO){
+            IO.toString();
+        }
+    }
+}

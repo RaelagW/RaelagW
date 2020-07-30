@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+int main(){
+    int start, over;
+    cout << "Enter starting number: ";
+    cin >> start;
+    cout << "Enter last value: ";
+    cin >> over;
+    bool isFound = false;
+    if(start < 1) start = 1;
+    if(over > 100000 ) over = 100000;
+    int con = 0;
+    for(int i = start; i <= over; ++i){
+        int j = i;
+        int temp = i;
+        while(j != 0){
+            int rem = j % 10;
+            if(rem == 4 || rem == 7) con = con *10 + rem;
+            else {isFound = false; break;}
+            j/=10;
+            isFound = true;
+        }
+        if(isFound) cout << con << " ";
+        isFound = false;
+        con = 0;
+    }
+    return 0;
+}

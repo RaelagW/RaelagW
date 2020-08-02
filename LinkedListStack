@@ -1,0 +1,102 @@
+#include <iostream>
+
+using namespace std;
+
+class Node{
+private :
+    int data;
+    Node *next;
+public:
+    Node(int data = NULL){
+        this->data = data;
+        next = NULL;
+    }
+
+    friend class linkedlistStack;
+};
+
+class linkedlistStack{
+private:
+    Node *top;
+public:
+    linkedlistStack(){
+        top = NULL;
+    }
+
+    bool empty(){
+        return top == NULL;
+    }
+
+    void push(int data){
+        Node *newNode = new Node(data);
+        if(empty()) {top = newNode; return;}
+        newNode->next = top;
+        top = newNode;
+    }
+
+    void pop(){
+        if(empty()) return;
+        Node* temp = top;
+        top = top->next;
+        delete temp;
+    }
+
+    void print(){
+        if(empty()) return;
+        Node* temp = top;
+        while(temp != NULL){
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+
+    void addFive(){
+        Node *temp = top;
+        while(temp != NULL){
+            temp->data += 5;
+            temp = temp->next;
+        }
+    }
+
+    bool find(int item){
+        Node* temp = top;
+        while(temp != NULL){
+            if(temp->data == item) return true;
+            temp = temp->next;
+        }
+        return false;
+    }
+
+    int *smallestAndlargestNumber(){
+        int *p, max, min;
+        p = new int[2];
+        max = min = top->data;
+        Node* temp = top;
+        while(temp != NULL){
+            if(temp->data < min) min = temp->data;
+            if(temp->data > max) max = temp->data;
+            temp = temp->next;
+        }
+        p[0] = min;
+        p[1] = max;
+        return p;
+    }
+};
+
+int main(){
+    linkedlistStack lls;
+    lls.push(2);
+    lls.push(4);
+    lls.push(6);
+    lls.push(8);
+    lls.push(10);
+    lls.addFive();
+    lls.print();
+    int *package;
+    package = lls.smallestAndlargestNumber();
+    cout << "\nSmallest number in the stack = " << package[0] << endl;
+    cout << "Largest number in the stack = " << package[1] << endl;
+    return 0;
+}

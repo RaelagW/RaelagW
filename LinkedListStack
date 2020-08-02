@@ -92,6 +92,13 @@ int main(){
     lls.push(6);
     lls.push(8);
     lls.push(10);
+    lls.print();
+
+    bool isFound = lls.find(4);
+    if(isFound) cout << "\nFound!\n";
+    else cout << "\nNot found\n";
+
+    cout << endl << "After add 5:\n";
     lls.addFive();
     lls.print();
     int *package;

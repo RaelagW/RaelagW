@@ -1,0 +1,170 @@
+#include <iostream>
+
+using namespace std;
+
+/*
+    index:   0   1   2   3   4   5   6   7   8   9
+    Flag:    0   0   0   0   0   0   0   0   0   0
+    Key:     10  29              15  25          19
+
+*/
+
+// Cell
+class Bucket{ // Each cell must be type of backet
+private:
+    int key; // Type, string, class, student...etc;
+    // Key is value(student id, bookNumber)
+    int flag; // check if cell empty or not 0 empty/ 1 full;
+    // Flag can be boolean
+    // 0 Empty
+    // 1 Full
+    Bucket *next;
+public:
+    Bucket(){
+        flag = 0; // Empty Bucket
+        next = NULL;
+    }
+    friend class Hash; // To avoid Setter & Getter tedious
+};
+
+class Hash{
+private:
+    Bucket *H; // Array Bucket , each cell is bucket each one contain key & flag
+    int capacity; // Maximum size of array
+    int n; // Actual number of elements stored in the hash
+
+    int hashit(int key){ return key%capacity;}
+
+public:
+    // Constructor
+    Hash(int newcap = 7){
+        capacity = newcap; // Hash size
+        H = new Bucket[capacity]; // Array size
+        n = 0;
+    }
+
+    ~Hash(){
+        if(H != NULL) delete []H; // H might be deleted somewhere else just to check;
+        H = NULL;
+    }
+
+    int size(){ return n; } // Actual number of elements
+    bool empty(){ return n < 1; }
+    bool add(int key){
+        int B = hashit(key);
+        Bucket *b = new Bucket;
+        b->key = key;
+        b->flag = 1;
+        if(H[B].flag == 0){ // If bucket is empty or not
+            H[B].flag = 1;
+            H[B].next = b;
+            ++n;
+            return true;
+        }
+        /*
+        (B+1) % capacity to avoid array out of index imagin
+        collision happened at B = capacity - 1  we need to find first empty place after it
+        and guess what array out of index so we use % capacity to  loop back at beging
+        from 0 index and find first empty one.
+        */
+
+        // < B to go after it and loop back if there is not empty place
+        if(H[B].flag == 1){
+            Bucket *temp = H[B].next;
+            while(temp->next != NULL)
+                temp = temp->next;
+            temp->next = b;
+            return true;
+        }
+        return false;
+    }
+
+    int find(int key){
+        int B = hashit(key);
+        // == 1 to check if exist or not && key(value)
+        if(H[B].flag == 1 && H[B].next->key == key) return B; // Without collision
+        // we will go inside for loop in case the value we search not instantly found
+        for(int i = B; i < capacity; ++i){
+            if(H[i].flag == 1 && H[i].next != NULL){
+                Bucket *temp = H[B].next;
+                while(temp != NULL){
+                    if(temp->key == key) return i;
+                    temp = temp->next;
+                }
+            }
+        }
+
+        for(int i = 0; i < B; ++i){
+            if(H[i].flag == 1 && H[i].next != NULL){
+                Bucket *temp = H[B].next;
+                while(temp != NULL){
+                    if(temp->key == key) return i;
+                    temp = temp->next;
+                }
+            }
+        }
+        // and go through loop else -1 mean the value does not exist
+        // if value is not exist
+        return -1;
+    }
+
+    bool remove(int key){
+        int B = find(key);
+        if(B == -1) {cout << "not found to remove!\n"; return false;}
+        Bucket *head = H[B].next;
+        if(head->next == NULL){
+            H[B].flag = 0;
+            delete head;
+        }else{
+            Bucket *prev, *cur;
+            cur = head;
+            while(cur != NULL){
+                if(cur->key == key) break;
+                prev = cur;
+                cur = cur->next;
+            }
+
+            if(cur == head){
+                Bucket *temp = head;
+                head = head->next;
+                delete temp;
+                H[B].next = head;
+            }else{
+                if(cur ->next == NULL){
+                    prev->next = NULL;
+                    delete cur;
+                }else{
+                    prev->next = cur->next;
+                    delete cur;
+                }
+            }
+        }
+        return true;
+    }
+
+    void print(){
+        if(empty()) return;
+        for(int i = 0; i < capacity; ++i){
+            if(H[i].flag == 1 && H[i].next != NULL){
+                Bucket *temp = H[i].next;
+                while(temp != NULL){
+                    cout << temp->key << " ";
+                    temp = temp->next;
+                }
+            }
+        }
+        cout << endl;
+    }
+};
+
+int main(){
+    Hash h(10);
+    h.add(10);
+    h.add(100);
+    h.add(200);
+    h.add(11);
+    h.add(111);
+    h.print();
+    h.print();
+    return 0;
+}

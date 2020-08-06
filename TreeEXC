@@ -1,0 +1,273 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+
+using namespace std;
+
+ifstream fin;
+
+#define Max_Child 2
+// total number of nodes in tree
+// index data countChild leftChild rightChild
+
+int abs(int x){
+    return (x < 0 ? x * -1 : x);
+}
+
+struct Node{
+    int data;
+    int index;
+    int child[Max_Child];
+    int count_child;
+    int balanceFactor;
+    int color; // 0 black 1 blue
+    int wieght; // the weight of a tree is total number of nodes
+
+    Node *left;
+    Node *right;
+
+    Node(int index, int data, int count_child = 0, int left_child = 0, int right_child = 0){
+        this->index = index;
+        this->data = data;
+        this->count_child = count_child;
+        child[0] = left_child;
+        child[1] = right_child;
+        left = right = NULL;
+    }
+};
+
+class queue{
+    class bucket{
+        Node *item;
+        bucket *next;
+
+        bucket(Node *data){
+            this->item = data;
+            next = NULL;
+        }
+
+        friend class queue;
+    };
+
+    bucket *head, *tail;
+public:
+    queue(){ head = tail = NULL; }
+
+    bool empty(){ return head == NULL && tail == NULL; }
+
+    void push(Node *item){
+        bucket *newBucket = new bucket(item);
+        if(empty()) { head = tail = newBucket; return; }
+        tail->next = newBucket;
+        tail = newBucket;
+    }
+
+    void pop(){
+        if(empty()) return;
+        if(head == tail){delete head; head = tail = NULL; return;}
+        bucket *temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    Node *front(){
+        return head->item;
+    }
+};
+
+class binarySearchTree{
+    Node *root;
+    int totalNumberOfNodes;
+    void addHelper(Node *temp, int index, int data, int count_child, int left_child, int right_child){
+        if(temp == NULL) return;
+
+        if(data >= temp->data){
+            if(temp->right == NULL) {
+                Node *newNode = new Node(index, data, count_child, left_child, right_child);
+                temp->right = newNode;
+            }
+            else addHelper(temp->right, index, data, count_child, left_child, right_child);
+        }else{
+            if(temp->left == NULL) {
+                Node *newNode = new Node(index, data, count_child, left_child, right_child);
+                temp->left = newNode;
+            }else addHelper(temp->left, index, data, count_child, left_child, right_child);
+        }
+    }
+
+    int getHeightHelper(Node *temp){
+        if(temp == NULL) return -1;
+
+        int leftSubTree = getHeightHelper(temp->left);
+        int rightSubTree = getHeightHelper(temp->right);
+
+        return 1+ max(leftSubTree, rightSubTree);
+    }
+
+    int AVLHelper(Node *temp){
+        if(root == NULL) return 1;
+        int leftSubTree = getHeightHelper(root->left);
+        int rightSubTree = getHeightHelper(root->right);
+        if(abs(leftSubTree-rightSubTree) <= 1)
+            return 1;
+        return 0;
+    }
+
+    void displayInOrderHelper(Node *temp){
+        if(temp == NULL) return;
+        displayInOrderHelper(temp->left);
+        cout << temp->data << " ";
+        displayInOrderHelper(temp->right);
+    }
+
+    int getWeightHelper(Node *temp){
+        if(temp == NULL) return 0;
+        int leftSubTree = getWeightHelper(temp->left);
+        int rightSubTree = getWeightHelper(temp->right);
+        return  1 + (leftSubTree + rightSubTree);
+    }
+
+public:
+    binarySearchTree(){
+        root = NULL;
+        totalNumberOfNodes = 0;
+    }
+
+    void add(int index, int data, int count_child = 0, int left_child = 0, int right_child = 0){
+        Node *newNode = new Node(index, data, count_child, left_child, right_child);
+        if(root == NULL) {root = newNode; return;}
+        addHelper(root, index, data, count_child, left_child, right_child);
+    }
+
+    void displayLevelOrder(){
+        if(root == NULL) return;
+        queue q;
+        q.push(root);
+        while(!q.empty()){
+            Node *temp = q.front();
+            q.pop();
+            cout << temp->data << " ";
+            if(temp->left != NULL) q.push(temp->left);
+            if(temp->right != NULL) q.push(temp->right);
+        }
+        cout << endl;
+    }
+
+    // construct tree
+    void getReady(){
+        int i; // index
+        int d; // data
+        int cd; // count_child
+        int lc; // left_child
+        int rc; // right_child
+
+        fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\tree.txt");
+        if(!fin.is_open()) return; else{
+            fin >> totalNumberOfNodes;
+            fin >> i >> d >> cd >> lc >> rc;
+            add(i, d, cd, lc, rc);
+            fin >> i >> d >> cd >> lc;
+            add(i, d, cd, lc);
+            fin >> i >> d >> cd >> lc >> rc;
+            add(i, d, cd ,lc, rc);
+            fin >> i >> d >> cd;
+            add(i, d, cd);
+            fin >> i >> d >> cd;
+            add(i, d, cd);
+            fin >> i >> d >> cd >> lc >> rc;
+            add(i, d, cd, lc, rc);
+            fin >> i >> d >> cd;
+            add(i, d, cd);
+            fin >> i >> d >> cd;
+            add(i, d, cd);
+        }
+        fin.close();
+    }
+
+    int getHeight(){
+        if(root == NULL) return -1;
+        else getHeightHelper(root);
+    }
+
+    void balanceFactorSetter(){
+        if(root == NULL) return;
+        queue q;
+        q.push(root);
+        Node* temp;
+        while(!q.empty()){
+            temp = q.front();
+            q.pop();
+            int bf;
+            int leftSubTree = getHeightHelper(temp->left);
+            int rightSubTree = getHeightHelper(temp->right);
+            bf = rightSubTree - leftSubTree;
+            temp->balanceFactor = bf;
+            if(temp->left != NULL) q.push(temp->left);
+            if(temp->right != NULL) q.push(temp->right);
+        }
+    }
+
+    bool AVL(){
+        if(root == NULL) return false;
+        bool isAVL = AVLHelper(root);
+        return isAVL;
+    }
+
+    void displayInOrder(){
+        if(root == NULL) return;
+        displayInOrderHelper(root);
+    }
+
+    void getWeight(){
+        if(root == NULL) return;
+        int n;
+        queue q;
+        q.push(root);
+        Node* temp;
+        while(!q.empty()){
+            temp = q.front();
+            q.pop();
+            n = getWeightHelper(temp);
+            temp->wieght = n;
+            if(temp->left != NULL) q.push(temp->left);
+            if(temp->right != NULL) q.push(temp->right);
+        }
+    }
+
+    void setColor(){
+        if(root == NULL) return;
+        queue q;
+        q.push(root);
+        Node* temp;
+        root->color = 0;
+        while(!q.empty()){
+            temp = q.front();
+            q.pop();
+            if(temp->left != NULL) q.push(temp->left);
+            if(temp->right != NULL) q.push(temp->right);
+
+            if(temp->left != NULL){
+                if(temp->color == 0) temp->left->color = 1;
+                else temp->left->color = 0;
+            }
+
+            if(temp->right != NULL){
+                if(temp->color == 0) temp->right->color = 1;
+                else temp->right->color = 0;
+            }
+            cout << "Data: " << temp->data << " ";
+            cout << "Color: " << temp->color << "";
+            cout << " Wieght: " << temp->wieght << "\n";
+        }
+    }
+};
+
+int main(){
+    binarySearchTree bst;
+    bst.getReady();
+    bst.displayLevelOrder();
+    cout << endl;
+    bst.getWeight();
+    bst.setColor();
+    return 0;
+}

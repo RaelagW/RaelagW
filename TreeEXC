@@ -113,12 +113,12 @@ class binarySearchTree{
         return 0;
     }
 
-    void displayInOrderHelper(Node *temp){
+    /*void displayInOrderHelper(Node *temp){
         if(temp == NULL) return;
         displayInOrderHelper(temp->left);
         cout << temp->data << " ";
         displayInOrderHelper(temp->right);
-    }
+    }*/
 
     int getWeightHelper(Node *temp){
         if(temp == NULL) return 0;
@@ -213,10 +213,10 @@ public:
         return isAVL;
     }
 
-    void displayInOrder(){
+    /*void displayInOrder(){
         if(root == NULL) return;
         displayInOrderHelper(root);
-    }
+    }*/
 
     void getWeight(){
         if(root == NULL) return;
@@ -255,9 +255,23 @@ public:
                 if(temp->color == 0) temp->right->color = 1;
                 else temp->right->color = 0;
             }
-            cout << "Data: " << temp->data << " ";
-            cout << "Color: " << temp->color << "";
-            cout << " Wieght: " << temp->wieght << "\n";
+        }
+    }
+
+    void displayInfo(){
+        if(root == NULL) return;
+        queue q;
+        q.push(root);
+        cout << "Color 0 = black, 1 = blue\n\n";
+        while(!q.empty()){
+            Node *temp = q.front();
+            q.pop();
+            cout << "Data: " << temp-> data << " ";
+            cout << "Color: " << temp->color << " ";
+            cout << "BalanceFactor: " << temp->balanceFactor << " ";
+            cout << "Weight: " << temp->wieght << "\n";
+            if(temp->left != NULL) q.push(temp->left);
+            if(temp->right != NULL) q.push(temp->right);
         }
     }
 };
@@ -265,9 +279,9 @@ public:
 int main(){
     binarySearchTree bst;
     bst.getReady();
-    bst.displayLevelOrder();
-    cout << endl;
     bst.getWeight();
     bst.setColor();
+    bst.balanceFactorSetter();
+    bst.displayInfo();
     return 0;
 }

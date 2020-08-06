@@ -161,7 +161,7 @@ public:
         int lc; // left_child
         int rc; // right_child
 
-        fin.open("C:\\Users\\m7mmd\\OneDrive\\Desktop\\tree.txt");
+        fin.open("tree.txt");
         if(!fin.is_open()) return; else{
             fin >> totalNumberOfNodes;
             fin >> i >> d >> cd >> lc >> rc;

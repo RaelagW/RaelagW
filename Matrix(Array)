@@ -3,13 +3,17 @@
 using namespace std;
 
 int main() {
+  // array defention
   int arr[15];
+  // Info the user to enter elemnts of array
   cout << "Enter elements value:\n";
+  // loop to iterate at every elemnts in array and store value
   for(int i = 0; i < 15; ++i){
     cout << "arr[" << i << "]: ";
     cin >> arr[i];
   }
-
+  // loop to check whthere the elemnts is even or odd
+  // if even we will print else skip
   for(int i = 0; i < 15; ++i){
     if(arr[i] % 2 == 0) cout << arr[i] << " ";
   }

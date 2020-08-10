@@ -1,0 +1,118 @@
+#include <iostream>
+
+using namespace std;
+
+string Students[]={
+        "Fadi", "Salem", "Rabab", "Ahmad", "Hanan"
+    };
+double Cources[5][6];
+double StdAvg[5];
+double CrsAvg[6];
+
+void CrsCalc(){
+    double sum = 0;
+    for(int i = 0; i < 5; ++i){
+        for(int j = 0; j < 6; ++j){
+            sum += Cources[i][j];
+        }
+        StdAvg[i] = sum / 6;
+        sum = 0;
+    }
+}
+
+void StdCalc(){
+    double sumPH, sumM, sumA, sumE, sumH, sumB;
+    sumPH = sumM = sumA = sumE = sumH = sumB = 0.0;
+    /*
+        ///////////////////////////////////
+        / sumPH = Physics marks summation /
+        / sumM = Math marks summation     /
+        / sumA = Arabic marks summation   /
+        / sumE = English marks summation  /
+        / sumH = History marks summation  /
+        / sumB = Biology marks summation  /
+        ///////////////////////////////////
+    */
+    for(int i = 0; i < 5; ++i){
+        for(int j = 0; j < 6; ++j){
+            switch(j){
+                case 0: sumPH += Cources[i][j]; break;
+                case 1: sumM += Cources[i][j]; break;
+                case 2: sumA += Cources[i][j]; break;
+                case 3: sumE += Cources[i][j]; break;
+                case 4: sumH += Cources[i][j]; break;
+                case 5: sumB += Cources[i][j]; break;
+            }
+        }
+    }
+    for(int i = 0; i < 6; ++i){
+        switch(i){
+            case 0: CrsAvg[i] = sumPH / 5; break;
+            case 1: CrsAvg[i] = sumM / 5; break;
+            case 2: CrsAvg[i] = sumA / 5; break;
+            case 3: CrsAvg[i] = sumE / 5; break;
+            case 4: CrsAvg[i] = sumH / 5; break;
+            case 5: CrsAvg[i] = sumB / 5; break;
+        }
+    }
+}
+
+int main(){
+    cout << "Enter students marks: ";
+    for(int i = 0; i < 5; ++i){
+        cout << "\nStudent " << Students[i] << ": \n";
+        for(int j = 0; j < 6; ++j){
+            switch(j){
+                case 0: cout << "Physics: "; break;
+                case 1: cout << "Math: "; break;
+                case 2: cout << "Arabic: "; break;
+                case 3: cout << "English: "; break;
+                case 4: cout << "History: "; break;
+                case 5: cout << "Biology: "; break;
+            }
+            cin >> Cources[i][j];
+        }
+        cout << endl;
+    }
+
+    CrsCalc();
+    StdCalc();
+
+    for(int i = 0; i < 6; ++i){
+        switch(i){
+            case 0: cout << "Physics " << CrsAvg[i] << ", "; break;
+            case 1: cout << "Math " << CrsAvg[i] << ", "; break;
+            case 2: cout << "Arabic " << CrsAvg[i] << ", "; break;
+            case 3: cout << "English " << CrsAvg[i] << ", "; break;
+            case 4: cout << "History " << CrsAvg[i] << ", "; break;
+            case 5: cout << "Biology " << CrsAvg[i] << " "; break;
+        }
+    }
+    cout << endl;
+    for(int i = 0; i < 5; ++i){
+        switch(i){
+            case 0: cout << Students[i] << " " << StdAvg[i] << ", "; break;
+            case 1: cout << Students[i] << " " << StdAvg[i] << ", "; break;
+            case 2: cout << Students[i] << " " << StdAvg[i] << ", "; break;
+            case 3: cout << Students[i] << " " << StdAvg[i] << ", "; break;
+            case 4: cout << Students[i] << " " << StdAvg[i] << ", "; break;
+            case 5: cout << Students[i] << " " << StdAvg[i] << " "; break;
+        }
+    }
+    cout << endl;
+
+    double maximum = StdAvg[0];
+    int temp = -1;
+    for(int i = 0; i < 5; ++i){
+       if(maximum < StdAvg[i]){
+           maximum = StdAvg[i];
+           if(i == 4){
+            temp = i;
+            break;}
+       }
+    }
+
+    cout << "Student " << Students[temp] << " have the maximum average which it " << maximum << endl;
+
+    return 0;
+}

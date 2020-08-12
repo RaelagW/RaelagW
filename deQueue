@@ -1,0 +1,63 @@
+#include <iostream>
+
+using namespace std;
+
+class queue{
+int *arr, front, rear, fixedSize;
+public:
+    queue(int size = 5){
+        front = rear = -1;
+        fixedSize = size;
+        arr = new int[fixedSize];
+    }
+
+    bool empty(){
+        return ((front == -1 && rear == -1) || (front > fixedSize -1));
+    }
+
+    bool full(){
+        return front == 0 && rear == fixedSize - 1;
+    }
+
+    void push(int data){
+        if(full()) {cout << "queue is full!\n"; return;}
+        if(empty()) {
+            front = rear = 0;
+            arr[rear] = data;
+            return;
+        }
+        arr[++rear] = data;
+    }
+
+    void pop(){
+        if(empty()){cout << "queue is empty!\n"; return;}
+        ++front;
+    }
+
+    void deQueue(int k){
+        if(empty()){cout << "queue is empty!\n"; return;}
+        for(int i = 1; i <= k; ++i){
+            ++front;
+        }
+    }
+
+    void print(){
+        if(empty()){cout << "queue is empty!\n"; return;}
+        for(int i = front; i != rear; ++i){
+            cout << arr[i] << " ";
+        }
+        cout << arr[rear] << endl;
+    }
+};
+
+int main(){
+    queue q;
+    q.push(2);
+    q.push(4);
+    q.push(6);
+    q.push(8);
+    q.push(10);
+    q.deQueue(4);
+    q.print();
+    return 0;
+}

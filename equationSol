@@ -1,0 +1,17 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main(){
+    int x;
+    cout << "Enter x: ";
+    cin >> x;
+    int e;
+    cout << "Enter e: ";
+    cin >> e;
+    int f;
+    f = sqrt((cos(2*x) + pow(e,-3*x)) / (log(x) + pow(x, 2) / 5 ));
+    cout << "Equation = " << f << endl;
+    return 0;
+}

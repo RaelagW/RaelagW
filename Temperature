@@ -1,0 +1,68 @@
+#include <iostream>
+//#include <time.h>
+using namespace std;
+
+int main(){
+    //srand(time(0));
+    int n = 0;
+    int *arr;
+    int matrix[7][5];
+    cout << "Fill temperature array:\n";
+    for(int i = 0; i < 7; ++i){
+        for(int j = 0; j < 5; ++j){
+            cout << "Day[" << i + 1 << "][" << j + 1 << "]: ";
+            cin >> matrix[i][j];
+            //matrix[i][j] = rand() % 35;
+            if(matrix[i][j] > 5 && matrix[i][j] < 15)++n;
+        }
+    }
+
+    cout << "\nDisplay temperature array:\n";
+    for(int i = 0; i < 7; ++i){
+        for(int j = 0; j < 5; ++j) cout << matrix[i][j] << "   ";
+        cout << endl;
+    }
+
+
+    arr = new int[n];
+    int k = 0;
+    int high = matrix[0][0];
+    cout << "\nThe highest temperature = ";
+    for(int i = 0; i < 7; ++i){
+        for(int j = 0; j < 5; ++j) {if(matrix[i][j] > high) high = matrix[i][j];
+            if(matrix[i][j] > 5 && matrix[i][j] < 15) arr[k++] = matrix[i][j];
+        }
+    }
+    cout << high << endl;
+
+    int d, d1, d2, d3, d4, d5, d6;
+    d = d1 = d2 = d3 = d4 = d5 = d6 = 0;
+    for(int i = 0; i < 7; ++i){
+        for(int j = 0; j < 5; ++j){
+            switch(i){
+                case 0: d += matrix[i][j]; break;
+                case 1: d1 += matrix[i][j]; break;
+                case 2: d2 += matrix[i][j]; break;
+                case 3: d3 += matrix[i][j]; break;
+                case 4: d4 += matrix[i][j]; break;
+                case 5: d5 += matrix[i][j]; break;
+                case 6: d6 += matrix[i][j]; break;
+            }
+        }
+    }
+    cout << "Average Day 1: " << d / 5 << endl;
+    cout << "Average Day 2: " << d1 / 5 << endl;
+    cout << "Average Day 3: " << d2 / 5 << endl;
+    cout << "Average Day 4: " << d3 / 5 << endl;
+    cout << "Average Day 5: " << d4 / 5 << endl;
+    cout << "Average Day 6: " << d5 / 5 << endl;
+    cout << "Average Day 7: " << d6 / 5 << endl;
+
+    cout << "\nTemperatures between 5 & 15: \n";
+    for(int i = 0; i < n; ++i){
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}

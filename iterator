@@ -1,0 +1,22 @@
+#include <iostream>
+
+using namespace std;
+
+int main(){
+    char c = 'i';
+    int m1, m2, m3, m4, m5;
+    int sum;
+    int avg;
+    do{
+        cout << "Enter 5 marks respectively: ";
+        cin >> m1 >> m2 >> m3 >> m4 >> m5;
+        sum = m1 + m2 + m3 + m4 + m5;
+        avg = sum / 5;
+        cout << "\nSummation = " << sum << endl;
+        cout << "\nAverage = " << avg << endl;
+        cout << "\nType any character excpet N if you wanna complete: ";
+        cin >> c;
+        if(c == 'N') break; else cout << endl;
+    }while(c != 'N');
+   return 0;
+}

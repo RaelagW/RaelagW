@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+class StackType{
+    struct Node{
+        int item;
+        Node *next;
+        Node(int data){
+            item = data;
+            next = nullptr;
+        }
+    };
+    Node* top;
+public:
+    StackType(){top = nullptr;}
+    bool empty(){return top == nullptr;}
+    void push(int data){
+        Node *newNode = new Node(data);
+        if(empty()){top = newNode; return;}
+        newNode->next = top;
+        top = newNode;
+    }
+
+    void pop(){
+        if(empty()) return;
+        Node *temp = top;
+        top = top->next;
+        delete temp;
+    }
+
+    void print(){
+        if(empty()) return;
+        Node*temp = top;
+        while(temp != NULL){
+            cout << temp->item << " ";
+            temp = temp->next;
+        }
+    }
+
+    void decrement(){
+        if(empty()) return;
+        Node* temp = top;
+        while(temp!= NULL){
+            temp->item -= 1;
+            temp = temp->next;
+        }
+    }
+
+};
+
+int main(){
+    StackType stk;
+    stk.push(2);
+    stk.push(4);
+    stk.print();
+    cout << endl;
+    stk.decrement();
+    stk.print();
+    return 0;
+}

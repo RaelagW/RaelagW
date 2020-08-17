@@ -1,0 +1,110 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct Node{
+    int item;
+    Node *next;
+    Node(int data){
+        item = data;
+        next = nullptr;
+    }
+};
+
+class StackType{
+    Node* top;
+public:
+    friend class Queue;
+    StackType(){top = nullptr;}
+    bool empty(){return top == nullptr;}
+    void push(int data){
+        Node *newNode = new Node(data);
+        if(empty()){top = newNode; return;}
+        newNode->next = top;
+        top = newNode;
+    }
+
+    void pop(){
+        if(empty()) return;
+        Node *temp = top;
+        top = top->next;
+        delete temp;
+    }
+
+    void print(){
+        if(empty()) return;
+        Node*temp = top;
+        while(temp != nullptr){
+            cout << temp->item << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+    int peek(){
+        return top->item;
+    }
+
+    void decrement(){
+        if(empty()) return;
+        Node* temp = top;
+        while(temp!= nullptr){
+            temp->item -= 1;
+            temp = temp->next;
+        }
+    }
+
+};
+
+class Queue{
+    Node *head, *tail;
+public:
+    friend class StackType;
+    Queue(){head = tail = nullptr;}
+    bool empty(){return head == nullptr && tail == nullptr;}
+    void push(int data){
+        Node *newNode = new Node(data);
+        if(empty()){head = tail = newNode; return;}
+        tail->next = newNode;
+        tail = newNode;
+    }
+    void pop(){
+        if(empty()) return;
+        if(head == tail){head = tail = nullptr;}
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+    void print(){
+        if(empty()) return;
+        Node *temp = head;
+        while(temp->next != tail){
+            cout << temp->item << " ";
+            temp = temp->next;
+        }
+        cout << temp->item << " ";
+        cout << tail->item << endl;
+    }
+
+    Queue reverseQueue(StackType stk, Queue q){
+        Queue temp;
+        while(!stk.empty()){
+            temp.push(stk.peek());
+            stk.pop();
+        }
+        return temp;
+    }
+};
+
+int main(){
+    StackType stk;
+    stk.push(2); stk.push(4); stk.push(6); stk.push(8); stk.push(10);
+    stk.print();
+    Queue q;
+    q.push(2); q.push(4); q.push(6); q.push(8); q.push(10);
+    q.print();
+    q = q.reverseQueue(stk, q);
+    q.print();
+    return 0;
+}

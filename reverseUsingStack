@@ -1,0 +1,57 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+template <class T>
+class StackType{
+    struct Node{
+        T item;
+        Node *next;
+        Node(T data){
+            item = data;
+            next = nullptr;
+        }
+    };
+    Node* top;
+public:
+    StackType(){top = nullptr;}
+    bool empty(){return top == nullptr;}
+    void push(T data){
+        Node *newNode = new Node(data);
+        if(empty()){top = newNode; return;}
+        newNode->next = top;
+        top = newNode;
+    }
+
+    void pop(){
+        if(empty()) return;
+        Node *temp = top;
+        top = top->next;
+        delete temp;
+    }
+
+    void print(){
+        if(empty()) return;
+        Node*temp = top;
+        while(temp != nullptr){
+            cout << temp->item;
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+    T peek(){
+        return top->item;
+    }
+};
+
+int main(){
+    string str;
+    StackType<char> stk;
+    cout << "Enter string: ";
+    getline(cin, str);
+    for(int i = 0; str[i] != '\0'; ++i) stk.push(str[i]);
+    stk.print();
+    return 0;
+}

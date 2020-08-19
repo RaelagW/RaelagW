@@ -1,0 +1,10 @@
+int findNode(int x){
+    Node *temp = head;
+    int i = 0;
+    while(temp != nullptr){
+        if(temp->data == x) return i;
+        temp = temp->next;
+        ++i;
+    }
+    return 0;
+}

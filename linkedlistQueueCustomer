@@ -1,0 +1,60 @@
+class linkedlistQueue{
+    static class Node{
+        int customerID;
+        String customerName;
+        Node next;
+        
+        Node(int customerID, String customerName){
+            this.customerID = customerID;
+            this.customerName = customerName;
+            next = null;
+        }
+    }
+    
+    private Node front, rear;
+    public linkedlistQueue(){
+        front = rear = null;
+    }
+    boolean empty(){
+        return front == null && rear == null;
+    }
+    void push(int customerID, String customerName){
+        Node newNode = new Node(customerID, customerName);
+        if(empty()){
+            front = rear = newNode;
+            return;
+        }
+        rear.next = newNode;
+        rear = newNode;
+    }
+    void pop(){
+        if(empty()) return;
+        if(front == rear) {front.next = null; front = rear = null;}
+        Node temp = front;
+        front = front.next;
+        temp.next = null;
+        temp = null;
+    }
+    void print(){
+        if(empty()) return;
+        Node temp = front;
+        while(temp.next != rear){
+            System.out.println("CustomerID = " + temp.customerID + "\nCustomerName = " + temp.customerName);
+            temp = temp.next;
+        }
+        System.out.println("CustomerID = " + temp.customerID + "\nCustomerName = " + temp.customerName);
+        System.out.println("CustomerID = " + rear.customerID + "\nCustomerName = " + rear.customerName);
+    }
+}
+
+public class assigment {
+    public static void main(String[] args) {
+        linkedlistQueue llq = new linkedlistQueue();
+        llq.push(111, "Mohammad");
+        llq.push(222, "Ahmad");
+        llq.push(333, "Mahmood");
+        llq.push(444, "Ali");
+        llq.push(555, "Basem");
+        llq.print();
+    }
+}

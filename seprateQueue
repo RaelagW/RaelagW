@@ -1,0 +1,70 @@
+#include <iostream>
+
+using namespace std;
+
+class queue{
+int *arr, front, rear, size;
+public:
+    queue(int size = 10){
+        arr = new int[size];
+        this->size = size;
+        rear = front = -1;
+    }
+    bool empty(){
+        return front == -1 && rear == -1;
+    }
+
+    bool full(){
+        return front == 0 && rear == size -1;
+    }
+
+    void push(int item){
+        if(full()) return;
+        if(front == -1) front = 0;
+        ++rear;
+        arr[rear] = item;
+    }
+
+    void pop(){
+        if(front == rear) {front = rear = -1; return;}
+        if(empty()) return;
+        ++front;
+    }
+
+    int peek(){
+        return arr[front];
+    }
+
+    int getSize(){
+        return size;
+    }
+
+    void print(){
+        if(empty()) return;
+        for(int i = front; i < rear; ++i) cout << arr[i] << " ";
+        cout << arr[rear] << " \n";
+    }
+};
+
+int main(){
+    queue q, q1, q2;
+    q.push(1); q.push(10); q.push(15); q.push(20); q.push(26);
+    cout << "normal queue: ";
+    q.print();
+
+    for(int i = 0; i < q.getSize(); ++i){
+        if(q.peek()>25){
+            if(!q.empty()){
+            q2.push(q.peek());q.pop();}}
+        if(q.peek()<=25){if(!q.empty()){
+            q1.push(q.peek());q.pop();}}
+    }
+    cout << "\nqueue no1 : ";
+    q1.print();
+    cout << "\nqueue no2: ";
+    q2.print();
+    cout << "\nnormal queue: ";
+    q.print();
+    cout << endl;
+    return 0;
+}

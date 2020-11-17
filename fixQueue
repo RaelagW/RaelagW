@@ -1,0 +1,139 @@
+#include <iostream>
+using namespace std;
+
+class Queue
+{
+    private:
+int rear;
+int front;
+int* items;
+int maxQue;
+
+public:
+Queue(int);
+~Queue();
+void Enqueue(int item);//insert an item in the queue
+void Dequeue();//deletes an item from the queue
+void MakeEmpty();//empty the queue
+ int peek();
+bool IsEmpty();//check if the queue is empty
+bool IsFull();//check if the queue is full
+void Print();//prints the contents of the queue
+int EvenSum();//sum even numbers only
+};
+Queue::Queue(int max=10)
+{
+ maxQue = max;
+ front = 0;
+ rear = maxQue - 1;
+ items = new int[maxQue];
+}
+Queue::~Queue()
+{
+ delete [] items;
+}
+void Queue:: MakeEmpty()
+{
+ front = maxQue - 1;
+ rear = maxQue - 1;
+}
+bool Queue::IsEmpty()
+{
+ return (rear == front);
+}
+
+bool Queue::IsFull()
+{
+ return ( (rear + 1) % maxQue == front || (front == 0 && rear == maxQue - 1));
+}
+
+void Queue::Enqueue (int item)
+{
+ rear = (rear + 1) % maxQue;
+ items[rear] = item;
+}
+void Queue::Dequeue ()
+{
+ front = (front + 1) % maxQue;
+}
+
+void Queue::Print()
+{
+    if(IsEmpty()) return;
+    for (int i = front; i != rear; i = (i+1 ) % maxQue)
+    {
+        cout << items[i] << " ";
+    }
+    cout <<items[rear]<<endl;
+
+    }
+
+
+int Queue:: peek(){
+        return items[front];
+    }
+
+int Queue::EvenSum()
+    {
+        if(Queue::IsEmpty())return -1;
+        int sum=0;
+    for(int i = front; i !=rear; i=(i+1)%maxQue)
+    {
+        if(items[i]%2 == 0)
+           sum+=items[i];
+        }
+        if(items[rear]%2 == 0)
+           sum+=items[rear];
+return sum;
+    }
+
+int main()
+{
+    /*Queue q;
+    q.Enqueue(2);
+    q.Enqueue(4);
+    q.Enqueue(6);
+    q.Enqueue(8);
+    q.Dequeue(10);
+    cout << q.EvenSum() << endl;
+    q.Print();*/
+    int x;
+    Queue g;
+     Queue q1;
+      Queue q2;
+    for(int i=0; i<10 ;i++)
+    {
+        cin>>x;
+        g.Enqueue(x);
+    }
+
+    g.Print();
+     for(int i=0; i<4 ;i++)
+    {
+
+g.Dequeue();    }
+
+        g.Print();
+        g.Enqueue(11);
+        g.Enqueue(70);
+        g.Print();
+      cout<<"sum of even items in the queue = "<<g.EvenSum();
+
+int y;
+for(int i = 0; i < 10; ++i){
+     y=g.peek();
+        if(y>25){
+            if(!g.IsEmpty()){
+            q2.Enqueue(y);
+            g.Dequeue();}}
+        if(y<=25){if(!g.IsEmpty()){
+            q1.Enqueue(y);g.Dequeue();}}
+    }
+ cout << "\nqueue no1 : ";
+    q1.Print();
+    cout << "\nqueue no2: ";
+    q2.Print();
+    cout << "\nnormal queue: ";
+    g.Print();
+    return 0;
+}

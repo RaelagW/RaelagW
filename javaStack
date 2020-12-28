@@ -1,0 +1,65 @@
+class stack{
+  int []arr;
+  int top;
+  int cap;
+
+  stack(){
+    cap = 10;
+    arr = new int[cap];
+    top = -1;
+  }
+
+  boolean isEmpty(){
+    return top == -1;
+  }
+
+  boolean isFull(){
+    return top == cap - 1;
+  }
+
+  void push(int data){
+    if (isFull())
+      return;
+    ++top;
+    arr[top] = data;
+  }
+
+  void pop(){
+    if (isEmpty()) return;
+    top = top -1;
+  }
+
+  int peek(){
+    if (isEmpty()) return -1;
+    return arr[top];
+  }
+
+  void print(){
+    if (isEmpty()) return;
+    for(int i = top; i >= 0; --i){
+      System.out.print(arr[i] + " ");
+    }
+  }
+
+  void printEven(){
+    if (isEmpty()) return;
+    for(int i = top; i >= 0; --i){
+      if(arr[i] % 2 == 0)
+        System.out.print(arr[i] + " ");
+      else continue;
+    }
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    stack stk = new stack();
+    stk.push(1);
+    stk.push(2);
+    stk.push(3);
+    stk.push(4);
+    //stk.pop();
+    stk.printEven();
+    //System.out.println(stk.peek());
+  }
+}

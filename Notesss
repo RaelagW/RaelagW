@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+cout << "Enter integer number: ";
+int x;
+cin >> x;
+int n = 0;
+int temp = x;
+while(x != 0){
+  ++n;
+  x /= 10;
+}
+x = temp;
+// cout << n; 
+
+int rem;
+int cont = 0; 
+int sumOfDigits = 0;
+int sumOfOdds = 0;
+int max = 0;
+int minOdd = x;
+while(x != 0){
+rem  = x % 10;
+if (rem > max)
+  max = rem;
+sumOfDigits += rem;
+if(rem % 2 != 0){
+  sumOfOdds += rem;
+  if(rem < minOdd)
+    minOdd = rem;
+}
+cont = cont * 10 + rem;
+x /= 10;
+}
+//x = temp;
+cout << "Sum Of Digits = " << sumOfDigits << endl;
+cout << "Sum Of Odds Digits = " << sumOfOdds << endl;
+cout << "Max digits of x = " << max << endl;
+cout << "Min odd of x = " << minOdd << endl;
+while(cont != 0){
+  rem = cont % 10;
+  cout << rem << " ";
+  cont /= 10;
+}
+}

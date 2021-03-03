@@ -1,0 +1,68 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class NewMain{
+    
+    JFrame frame;
+    JLabel label;
+    
+    public static void main(String[] args) {
+        NewMain a = new NewMain();
+        a.go();
+    }
+    
+    void go(){
+        frame = new JFrame();
+        JButton colorButton = new JButton("Change Color");
+        JButton labelButton = new JButton("Change Label");
+        label = new JLabel("Iam Label");
+        myDrawe d = new myDrawe();
+        
+        labelButton.addActionListener(new LabelListener());
+        colorButton.addActionListener(new colorListener());
+        
+        frame.getContentPane().add(BorderLayout.CENTER, d);
+        frame.getContentPane().add(BorderLayout.SOUTH, colorButton);
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 300);
+        frame.setVisible(true);
+    }
+    
+    
+    class LabelListener implements ActionListener{
+        public void actionPerformed(ActionEvent event){
+            label.setText("Ouch That Hurt");
+        }
+    }
+    
+    class colorListener implements ActionListener{
+        public void actionPerformed(ActionEvent event){
+            frame.repaint();
+        }
+    }
+}
+
+class myDrawe extends JPanel{
+
+    @Override
+    public void paintComponent(Graphics g){
+        Graphics2D g2d = (Graphics2D)g;
+        
+        int red1 = (int) (Math.random() * 256);
+        int green1 = (int) (Math.random() * 256);
+        int blue1 = (int) (Math.random() * 256);
+        Color startColor = new Color(red1, green1, blue1);
+        
+        int red2 = (int) (Math.random() * 256);
+        int green2 = (int) (Math.random() * 256);
+        int blue2 = (int) (Math.random() * 256);
+        Color endColor = new Color(red2, green2, blue2);
+        
+        GradientPaint gradient = new GradientPaint(70, 70, startColor, 150, 150, endColor);
+        
+        g2d.setPaint(gradient);
+        g2d.fillOval(70, 70, 100, 100);
+    }
+}
